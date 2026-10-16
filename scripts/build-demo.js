@@ -1,4 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { build } from 'esbuild';
 import {
   isDebugMode,
   encodeToBase64,
@@ -63,4 +65,15 @@ const template = await readFile(new URL('../demo/index.html', import.meta.url), 
 if (template.split('{{results}}').length !== 2) throw new Error('Expected one results placeholder');
 await mkdir(new URL('../dist/', import.meta.url), { recursive: true });
 await writeFile(new URL('../dist/index.html', import.meta.url), template.replace('{{results}}', results));
+await build({
+  entryPoints: [fileURLToPath(new URL('../demo/app.js', import.meta.url))],
+  outfile: fileURLToPath(new URL('../dist/app.js', import.meta.url)),
+  bundle: true,
+  platform: 'browser',
+  target: 'es2020',
+  inject: [fileURLToPath(new URL('../demo/node-shim.js', import.meta.url))],
+  define: { 'process.env.NODE_ENV': 'demoProcess.env.NODE_ENV' },
+  minify: true,
+  keepNames: true,
+});
 console.log('Demo built: dist/index.html');
