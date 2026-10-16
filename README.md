@@ -1,27 +1,20 @@
-# Node.js Homework 01 — Base64 та Hex
+# Node.js Homework 01 — Base64 & Hex
 
-ДЗ 54.1: робота з `process.env` і `Buffer` у Node.js.
+Seven functions for checking `NODE_ENV`, encoding colon-separated arguments,
+and decoding Base64/Hex strings with Node.js `Buffer`.
 
-У `main.js` реалізовано сім функцій: перевірка режиму розробки,
-кодування аргументів із роздільником `:`, декодування Base64/Hex
-та безпечне декодування з перевіркою формату й обробкою помилок.
+## Run and test
 
-## Запуск і перевірка
+Requires Node.js 24. No external dependencies are needed.
 
-Потрібен Node.js 24. Зовнішніх залежностей немає.
+- `npm test` — run automated tests using `node:test`.
+- `npm run build` — generate the demo in `dist/index.html`.
+- `npm run check` — check syntax, run tests, and build the demo.
 
-```bash
-git clone https://github.com/andrii-dolzhenko/njs-homework-01-base-hex.git
-cd njs-homework-01-base-hex
-npm run check
-```
+Safe decoders validate the input format. Empty strings are valid.
+Invalid input throws `Invalid base64 string` or `Invalid hex string`.
+The solution is in `main.js`; `demo/` and `scripts/` provide the demo page.
 
-- `npm test` — автоматичні перевірки через `node:test`.
-- `npm run build` — створення демосторінки `dist/index.html` із результатами виконання функцій у Node.js. Файл можна відкрити в браузері.
+## Demo
 
-Безпечне декодування приймає стандартний Base64 з коректним доповненням
-`=` за потреби та Hex із парною кількістю символів. Порожній рядок допустимий.
-Невалідні дані спричиняють `Invalid base64 string` або `Invalid hex string`.
-
-Основне рішення міститься в `main.js`; файли `demo/` і `scripts/` потрібні
-для демонстрації. GitHub Actions перевіряє код і публікує демо в GitHub Pages.
+[GitHub Pages](https://andrii-dolzhenko.github.io/njs-homework-01-base-hex/)
